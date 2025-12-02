@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { getByRole, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Formulario from './index';
 
@@ -21,4 +21,14 @@ describe('It should render an input field', () => {
         userEvent.type(fieldText, '30');
         expect(fieldText).toHaveValue(30);
     });
+});
+
+test('It should call an onSubmit event when you click on perform transaction.', () => {
+    const carryOutTransaction = jest.fn();
+
+    render(<Formulario realizarTransacao={carryOutTransaction} />);
+    const button = screen.getByRole('button');
+
+    userEvent.click(button);
+    expect(carryOutTransaction).toHaveBeenCalledTimes(1);
 });
