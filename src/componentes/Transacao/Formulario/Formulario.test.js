@@ -32,3 +32,16 @@ test('It should call an onSubmit event when you click on perform transaction.', 
     userEvent.click(button);
     expect(carryOutTransaction).toHaveBeenCalledTimes(1);
 });
+
+describe('Test select', () => {
+    test('It should be possible to select a option', () => {
+        const carryOutTransaction = jest.fn();
+
+        render(<Formulario realizarTransacao={carryOutTransaction} />);
+        const select = screen.getByTestId('select-opcoes');
+        expect(select).toBeInTheDocument();
+
+        userEvent.selectOptions(select, 'Depósito');
+        expect(select).toHaveValue('Depósito');
+    });
+});
